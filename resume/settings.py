@@ -125,3 +125,8 @@ STATICFILES_DIRS = (
 )
 STATIC_URL = '/staticfiles/'
 STATIC_ROOT = os.path.join ('static')
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'nikitqaa1901@gmail.com'
+EMAIL_HOST_PASSWORD = 'nikitqa89508071901'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
