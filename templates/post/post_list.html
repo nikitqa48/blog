@@ -6,10 +6,13 @@
         <h2>
             <a href="{% url 'post_detail' pk=post.slug %}">{{ post.title }}</a>
         </h2>
+        {{post.id}}
         <p class="date">
             Опубликован {{ post.publish }} кем {{ post.author }}
         </p>
         {{ post.body|truncatewords:30|linebreaks }}
+    
+        
     {% endfor %}
     {% include "pagination.html" with page=page_obj %}
 {% endblock %}
