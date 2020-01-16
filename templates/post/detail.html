@@ -1,13 +1,40 @@
 {% extends "base.html" %}
+{% load blog_tags %}
 {% block title %}{{ post.title }}{% endblock %}
 {% block content %}
     <h1>{{ post.title }}</h1>
     
     <p class="date">
         Published {{ post.publish }} by {{ post.author }}
-       
     </p>
 
-{{ post.body|linebreaks }}
+    {{ post.body|markdown }}
 <a href="{% url 'post_share' pk=post.slug %}">Отправить пост на почту</a>
+{{cont}}
+{% with comments.count as total_comments %}
+    <h2>
+        {{ total_comments }}комментарий{{ total_comments|pluralize }}
+    </h2>
+{% endwith %}
+{% for comment in comments %}
+    <div class="comment">
+        <p class="info">
+            Комментарий {{ forloop.counter }} от {{ comment.name }}
+            {{ comment.created }}
+        </p>
+        {{ comment.body|linebreaks }}
+    </div>
+{% empty %}
+    <p>нет комментариев</p>
+{% endfor %}
+{% if new_comment %}
+    <h2>Your comment has been added.</h2>
+{% else %}
+    <h2>Добавить комментарий</h2>
+    <form action="{% url 'post_detail' pk=post.slug%}" method="post">
+        {{ form.as_p }}
+        {% csrf_token %}
+        <p><input type="submit" value="Добавить"></p>
+    </form>
+{% endif %}
 {% endblock %}

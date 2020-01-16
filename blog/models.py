@@ -2,10 +2,11 @@ from django.db import models
 from django.utils import timezone
 from django.urls import reverse
 from django.contrib.auth.models import User
-
+from taggit.managers import TaggableManager
 # Create your models here.
 
 class Post(models.Model):
+    tags = TaggableManager()
     STATUS_CHOISES = (
         ('draft', 'Черновик'),
         ('published', 'Опубликован')
@@ -31,3 +32,21 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name='Пост', on_delete=models.CASCADE)
+    name = models.CharField('Имя', max_length=25)
+    email = models.EmailField('Почта')
+    body = models.TextField('Текст')
+    created = models.DateTimeField('Создан',auto_now_add=True)
+    update = models.DateTimeField('Обновлен',auto_now=True)
+    active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ('created',)
+        verbose_name_plural = 'Комментарии'
+        verbose_name = 'Комментарий'
+    
+    def __str__(self):
+        return 'Комментарий от' + " "+self.name + " "+ self.post.title

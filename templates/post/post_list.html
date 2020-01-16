@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load blog_tags %}
 {% block title %}Мой блог{% endblock %}
 {% block content %}
     <h1>Мой блог</h1>
@@ -6,11 +7,10 @@
         <h2>
             <a href="{% url 'post_detail' pk=post.slug %}">{{ post.title }}</a>
         </h2>
-        {{post.id}}
         <p class="date">
             Опубликован {{ post.publish }} кем {{ post.author }}
         </p>
-        {{ post.body|truncatewords:30|linebreaks }}
+        {{ post.body|markdown|truncatewords_html:30 }}
     
         
     {% endfor %}

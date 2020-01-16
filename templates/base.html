@@ -1,3 +1,4 @@
+{% load blog_tags %}
 {% load static %}
 <!DOCTYPE html>
 <html>
@@ -11,7 +12,7 @@
     {% endblock %}
 </div>
 <div id="sidebar">
-    <!-- <h2>Мой блог</h2> -->
+    <p><a href="{% url 'feed' %}">Новости</a></p>
 </div>
 </body>
 </html>
