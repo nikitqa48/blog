@@ -7,7 +7,7 @@
         Published {{ post.publish }} by {{ post.author }}
        
     </p>
-    <a href="{% url 'post_share' pk=post.slug %}">Отправить пост на почту</a>
 
 {{ post.body|linebreaks }}
+<a href="{% url 'post_share' pk=post.slug %}">Отправить пост на почту</a>
 {% endblock %}

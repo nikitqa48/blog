@@ -20,6 +20,10 @@ class Post(models.Model):
     updated = models.DateTimeField("Обновлен",auto_now=True)
     status = models.CharField("Статус",max_length=10,choices=STATUS_CHOISES, default='draft')
 
+    def get_absolute_url(self):
+        return reverse('post_detail',
+                        args=[self.slug])
+    
     class Meta:
         ordering = ('-publish',)
         verbose_name = 'Пост'

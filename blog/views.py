@@ -33,11 +33,10 @@ def post_share(request,pk):
         post = Post.objects.get(slug=pk)
         if form.is_valid():
             cd = form.cleaned_data
-            # post_url = request.build_absolute_uri(post.get_absolute_url())
+            post_url = request.build_absolute_uri(post.get_absolute_url())
             subject = '{} Реккомендует к чтению'.format(cd['name'], cd['email'], post.title)
             comments = form['comments'].value()
-            print(comments)
-            message = 'Прочитай' + ' ' +post.title+ " "+ "от"+ ' '+cd['name']+' '+comments
+            message = 'Прочитай' + ' ' +post.title+ " "+ "от"+ ' '+cd['name']+' '+comments + " " + post_url
             send_mail(subject, message, 'nikitqaa1901@gmail.com', [cd['to']])
             sent = True
         else:
